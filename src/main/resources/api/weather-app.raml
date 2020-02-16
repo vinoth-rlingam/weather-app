@@ -1,0 +1,37 @@
+#%RAML 1.0
+title: Weather API
+version: v1
+baseUri: http://localhost/api/
+
+/getweather:
+  displayName: Get weather API
+  description: This API gets the weather information for the given city and country.
+  get:
+      description: Retrieves the weather details for the give city and country
+      queryParameters: 
+        cityname:
+          type: string
+          required: true
+        country:
+          type: string
+          required: true
+      responses:
+        200:
+          body:
+            application/json:                               
+               example: response/weather.json
+               
+/getcitiesbycountry:
+  displayName: Get Cities by Country API
+  description: This API gets the cities for a given country.
+  get:
+      description: Retrieves the cities detail for a country
+      queryParameters: 
+        countryname:
+          type: string
+          required: true
+      responses:
+        200:
+          body:
+            application/json:                               
+               example: response/weather.json

@@ -1,0 +1,14 @@
+{
+  "sampleData": {
+    "2715165b-97e5-42b6-8264-42250f534521": {
+      "payload": "sample_data/object.dwl"
+    },
+    "05b82d18-e34f-4dd4-b269-591d0dea0d34": {},
+    "15382523-a8c7-4911-af8c-9cb042cc7812": {
+      "payload": "sample_data/unknown_1.xml"
+    },
+    "157dbb70-dcd1-4b17-94f4-c0e917c51db5": {
+      "payload": "sample_data/defaultstringtype.xml"
+    }
+  }
+}

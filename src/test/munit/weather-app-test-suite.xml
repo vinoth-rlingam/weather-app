@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="weather-app-test-suite.xml" />
+	<munit:test name="weather-app-test-suite-get:\getweather:weather-app-configTest" doc:id="44998250-eb49-4196-898d-df5b0ff0cf58" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when processor="wsc:consume" doc:name="Mock when" doc:id="dcbde3cd-62dd-45b2-889a-b70204ee5567" >
+			
+				<munit-tools:with-attributes>
+        			<munit-tools:with-attribute attributeName="operation" whereValue="#['GetWeather']"/>
+    			</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('responses/GetWeather')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e88cc2af-fea0-4d34-bb53-6701a2b6a944" >
+				<munit:attributes value="#[{ method : 'GET', queryParams : [{ country : 'Australia'},{cityname: 'Melbourne'}] }]" />
+
+				
+				</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\getweather:weather-app-config" doc:id="128568ff-21e5-4c8d-a0ab-dfdf00fa11a7" name="get:\getweather:weather-app-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="e9eec192-d045-49a9-86a8-522be5823a86" actual='#[payload]' expected='#[{
+  "Getweatherresponse": {
+    "Location": "Melbourne",
+    "Time": "11 AM",
+    "Wind": "15 km per hour",
+    "Visibility": "10 km",
+    "SkyConditions": "sunny",
+    "Temperature": "18",
+    "DewPoint": "2 C",
+    "RelativeHumidity": "35",
+    "Status": "Normal"
+  }
+}]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="weather-app-test-suite-get:\getcitiesbycountry:weather-app-configTest" doc:id="80ce0525-2946-422b-b3d7-2faa1c2a700d" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when processor="wsc:consume" doc:name="Mock when" doc:id="ce64ba57-64d9-42cb-ae82-39aca89d18e8" >
+				<munit-tools:with-attributes>
+        			<munit-tools:with-attribute attributeName="operation" whereValue="#['GetCitiesByCountry']"/>
+    			</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('responses/GetCitiesByCountry')]" />
+				</munit-tools:then-return>
+    
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="883f7d7a-461a-45d9-8657-b6afedea81b6" >
+				<munit:attributes value="#[{ method : 'GET', queryParams : { countryname : 'Australia'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\getcitiesbycountry:weather-app-config" doc:id="73a6320e-4dc5-4562-bc72-0ff73d3d677b" name="get:\getcitiesbycountry:weather-app-config"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="18035aa9-75a6-40ee-82d0-a6410a59b3a5" actual="#[payload]" expected='#[{
+  "GetCitiesByCountryresponse": {
+    "country": "Australia",
+    "cities": [
+      "Archerfield Aerodrome",
+      "Amberley Aerodrome",
+      "Alice Springs Aerodrome",
+      "Brisbane Airport M. O",
+      "Coolangatta Airport Aws",
+      "Cairns Airport",
+      "Charleville Airport",
+      "Gladstone",
+      "Longreach Airport",
+      "Mount Isa Amo",
+      "Mackay Mo",
+      "Oakey Aerodrome",
+      "Proserpine Airport",
+      "Rockhampton Airport",
+      "Broome Airport",
+      "Townsville Amo",
+      "Weipa City",
+      "Gove Airport",
+      "Tennant Creek Airport",
+      "Yulara Aws",
+      "Albury Airport",
+      "Devonport East",
+      "Goldstream Aws",
+      "East Sale Aerodrome",
+      "Hobart Airport",
+      "Launceston Airport",
+      "Laverton Aerodrome",
+      "Moorabbin Airport Aws",
+      "Mount Gambier Aerodrome",
+      "Mildura Airport",
+      "Melbourne Airport",
+      "Macquarie Island",
+      "Wynyard West",
+      "Adelaide Airport",
+      "Albany Airport",
+      "Broken Hill Patton Street",
+      "Ceduna Airport",
+      "Derby",
+      "Darwin Airport",
+      "Bullsbrook Pearce Amo",
+      "Edinburgh M. O.",
+      "Forrest Airport",
+      "Geraldton Airport",
+      "Kalgoorlie Boulder Amo",
+      "Kununurra Kununurra Aws",
+      "Leigh Creek Airport",
+      "Learmonth Airport",
+      "Meekatharra Airport",
+      "Port Hedland Pardoo",
+      "Parafield Airport",
+      "Belmont Perth Airport",
+      "Katherine Aerodrome",
+      "Woomera Aerodrome",
+      "Bankstown Airport Aws",
+      "Canberra",
+      "Coffs Harbour Mo",
+      "Cooma",
+      "Camden Airport",
+      "Dubbo",
+      "Norfolk Island Airport",
+      "Nowra Ran Air Station",
+      "Richmond Aus-Afb",
+      "Sydney Airport",
+      "Tamworth Airport",
+      "Wagga Airport",
+      "Williamtown Aerodrome"
+    ]
+  }
+}]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
